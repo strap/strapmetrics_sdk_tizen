@@ -1,0 +1,20 @@
+!SESSION 2014-09-19 13:06:40.298 -----------------------------------------------
+eclipse.buildId=1.0.0b2
+java.version=1.6.0_45
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
+Framework arguments:  -Dorg.eclipse.swt.browser.DefaultType=MOZILLA
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -Dorg.eclipse.swt.browser.DefaultType=MOZILLA
+
+!ENTRY org.tizen.common.ui.Startup 1 0 2014-09-19 13:07:21.166
+!MESSAGE SDK Information: Path [/home/intelligrape/tizen-wearable-sdk], Data Path [/home/intelligrape/tizen-wearable-sdk-data], Platform Path [/home/intelligrape/tizen-wearable-sdk/platforms/tizenw-1.0]
+!SESSION 2014-09-19 13:09:17.151 -----------------------------------------------
+eclipse.buildId=1.0.0b2
+java.version=1.6.0_45
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
+Framework arguments:  -Dorg.eclipse.swt.browser.DefaultType=MOZILLA
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -Dorg.eclipse.swt.browser.DefaultType=MOZILLA
+
+!ENTRY org.tizen.common.ui.Startup 1 0 2014-09-19 13:09:29.122
+!MESSAGE SDK Information: Path [/home/intelligrape/tizen-wearable-sdk], Data Path [/home/intelligrape/tizen-wearable-sdk-data], Platform Path [/home/intelligrape/tizen-wearable-sdk/platforms/tizenw-1.0]
