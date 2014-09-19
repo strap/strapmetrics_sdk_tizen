@@ -1,5 +1,0 @@
-INDEX VERSION 1.126+/home/intelligrape/TizenProject/strapmetrics_sdk_tizen/examples/Android_workspace/.metadata/.plugins/org.eclipse.jdt.core
-2912179000.index
-4285914771.index
-4007982300.index
-3892691824.index
