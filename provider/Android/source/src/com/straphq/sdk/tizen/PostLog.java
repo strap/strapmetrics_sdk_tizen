@@ -1,4 +1,4 @@
-package sm;
+package com.straphq.sdk.tizen;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

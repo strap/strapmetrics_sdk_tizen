@@ -1,4 +1,4 @@
-package sm;
+package com.straphq.sdk.tizen;
 
 import org.json.JSONException;
 import org.json.JSONObject;
