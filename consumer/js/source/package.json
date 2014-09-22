@@ -1,0 +1,8 @@
+{
+    "name": "Strap_TizenConsumerSDK",
+    "version": "0.0.1",
+    "description": "Contains the sources for the Tizen JS consumer SDK",
+    "dependencies": {
+        "uglify-js": "^2.4.15"
+    }
+}
