@@ -1,9 +1,11 @@
 ##Build Instructions##
 
 You need the following installed in your machine:
+
 1. JDK `1.7+`
 2. JavaDoc
 3. Ant
+
 
 To build via `ant` use the provided `antfile.xml`
 
