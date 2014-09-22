@@ -23,6 +23,7 @@ Android_workspace/
 ###################################
 *.class
 build/classes/
+build/*.jar
 
 ###################################
 # Local configuration file (sdk path, etc)
