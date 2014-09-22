@@ -1,194 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="source" default="all">
-  
+
     <!-- Uncomment the following property if no tests compilation is needed -->
-  <!-- 
-  <property name="skip.tests" value="true"/>
-   -->
-  
-  <!-- Compiler options -->
-  
-  <property name="compiler.debug" value="on"/>
-  <property name="compiler.generate.no.warnings" value="off"/>
-  <property name="compiler.args" value=""/>
-  <property name="compiler.max.memory" value="700m"/>
-  <patternset id="ignored.files">
-    <exclude name="**/CVS/**"/>
-    <exclude name="**/SCCS/**"/>
-    <exclude name="**/RCS/**"/>
-    <exclude name="**/rcs/**"/>
-    <exclude name="**/.DS_Store/**"/>
-    <exclude name="**/.svn/**"/>
-    <exclude name="**/.pyc/**"/>
-    <exclude name="**/.pyo/**"/>
-    <exclude name="**/*.pyc/**"/>
-    <exclude name="**/*.pyo/**"/>
-    <exclude name="**/.git/**"/>
-    <exclude name="**/*.hprof/**"/>
-    <exclude name="**/_svn/**"/>
-    <exclude name="**/.hg/**"/>
-    <exclude name="**/*.lib/**"/>
-    <exclude name="**/*~/**"/>
-    <exclude name="**/__pycache__/**"/>
-    <exclude name="**/.bundle/**"/>
-    <exclude name="**/*.rbc/**"/>
-    <exclude name="**/vssver.scc/**"/>
-    <exclude name="**/vssver2.scc/**"/>
-  </patternset>
-  <patternset id="library.patterns">
-    <include name="*.war"/>
-    <include name="*.ear"/>
-    <include name="*.apk"/>
-    <include name="*.zip"/>
-    <include name="*.swc"/>
-    <include name="*.ane"/>
-    <include name="*.egg"/>
-    <include name="*.jar"/>
-  </patternset>
-  <patternset id="compiler.resources">
-    <exclude name="**/?*.java"/>
-    <exclude name="**/?*.form"/>
-    <exclude name="**/?*.class"/>
-    <exclude name="**/?*.groovy"/>
-    <exclude name="**/?*.scala"/>
-    <exclude name="**/?*.flex"/>
-    <exclude name="**/?*.kt"/>
-    <exclude name="**/?*.clj"/>
-  </patternset>
-  
-  
-  <!-- Project Libraries -->
-  
-  <path id="library.accessory-v1.0.0.classpath">
-    <pathelement location="${basedir}/lib/accessory-v1.0.0.jar"/>
-  </path>
-  
-  <path id="library.android-support-v4.classpath">
-    <pathelement location="${basedir}/lib/android-support-v4.jar"/>
-  </path>
-  
-  <path id="library.android.classpath">
-    <pathelement location="${basedir}/lib/build_deps/android.jar"/>
-  </path>
-  
-  <path id="library.java-json.classpath">
-    <pathelement location="${basedir}/lib/java-json.jar"/>
-  </path>
-  
-  <path id="library.sdk-v1.0.0.classpath">
-    <pathelement location="${basedir}/lib/sdk-v1.0.0.jar"/>
-  </path>
-  
-  <!-- Modules -->
-  
-  
-  <!-- Module source -->
-  
-  <dirname property="module.source.basedir" file="${ant.file}"/>
-  
-  
-  
-  <property name="compiler.args.source" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
-  
-  <property name="source.output.dir" value="build/classes"/>
-  <property name="source.testoutput.dir" value="build/tests"/>
-  <property name="source.jar.dir" value="build"/>
-  <property name="lib.dir" value="${basedir}/lib"/>
+    <!--
+    <property name="skip.tests" value="true"/>
+     -->
 
-  <path id="source.module.bootclasspath">
-    <!-- Paths to be included in compilation bootclasspath -->
-  </path>
-  
-  <path id="source.module.production.classpath">
-    <path refid="library.java-json.classpath"/>
-    <path refid="library.android-support-v4.classpath"/>
-    <path refid="library.sdk-v1.0.0.classpath"/>
-    <path refid="library.accessory-v1.0.0.classpath"/>
-    <path refid="library.android.classpath"/>
-  </path>
-  
-  <path id="source.runtime.production.module.classpath">
-    <path refid="library.java-json.classpath"/>
-    <path refid="library.android-support-v4.classpath"/>
-    <path refid="library.sdk-v1.0.0.classpath"/>
-    <path refid="library.accessory-v1.0.0.classpath"/>
-  </path>
-  
-  <path id="source.module.classpath">
-    <path refid="library.java-json.classpath"/>
-    <path refid="library.android-support-v4.classpath"/>
-    <path refid="library.sdk-v1.0.0.classpath"/>
-    <path refid="library.accessory-v1.0.0.classpath"/>
-    <path refid="library.android.classpath"/>
-  </path>
-  
-  <path id="source.runtime.module.classpath">
-    <path refid="library.java-json.classpath"/>
-    <path refid="library.android-support-v4.classpath"/>
-    <path refid="library.sdk-v1.0.0.classpath"/>
-    <path refid="library.accessory-v1.0.0.classpath"/>
-  </path>
-  
-  
-  <patternset id="excluded.from.module.source">
-    <patternset refid="ignored.files"/>
-  </patternset>
-  
-  <patternset id="excluded.from.compilation.source">
-    <patternset refid="excluded.from.module.source"/>
-  </patternset>
-  
-  <path id="source.module.sourcepath">
-    <dirset dir="${module.source.basedir}">
-      <include name="src"/>
-    </dirset>
-  </path>
-  
-  
-  <target name="compile.module.source" depends="compile.module.source.production,compile.module.source.tests" description="Compile module source"/>
-  
-  <target name="compile.module.source.production" description="Compile module source; production classes">
-    <mkdir dir="${source.output.dir}"/>
-    <javac destdir="${source.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true">
-      <compilerarg line="${compiler.args.source}"/>
-      <bootclasspath refid="source.module.bootclasspath"/>
-      <classpath refid="source.module.production.classpath"/>
-      <src refid="source.module.sourcepath"/>
-      <patternset refid="excluded.from.compilation.source"/>
-    </javac>
-    
-    <copy todir="${source.output.dir}">
-      <fileset dir="${module.source.basedir}/src">
-        <patternset refid="compiler.resources"/>
-        <type type="file"/>
-      </fileset>
-    </copy>
+    <!-- Compiler options -->
 
-      <jar destfile="${source.jar.dir}/strap-tizen-SDK-full.jar"
-           basedir="${source.output.dir}">
-          <fileset dir="${source.output.dir}" includes="**/*.class" />
-          <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
-      </jar>
+    <property name="compiler.debug" value="on"/>
+    <property name="compiler.generate.no.warnings" value="off"/>
+    <property name="compiler.args" value=""/>
+    <property name="compiler.max.memory" value="700m"/>
+    <patternset id="ignored.files">
+        <exclude name="**/CVS/**"/>
+        <exclude name="**/SCCS/**"/>
+        <exclude name="**/RCS/**"/>
+        <exclude name="**/rcs/**"/>
+        <exclude name="**/.DS_Store/**"/>
+        <exclude name="**/.svn/**"/>
+        <exclude name="**/.pyc/**"/>
+        <exclude name="**/.pyo/**"/>
+        <exclude name="**/*.pyc/**"/>
+        <exclude name="**/*.pyo/**"/>
+        <exclude name="**/.git/**"/>
+        <exclude name="**/*.hprof/**"/>
+        <exclude name="**/_svn/**"/>
+        <exclude name="**/.hg/**"/>
+        <exclude name="**/*.lib/**"/>
+        <exclude name="**/*~/**"/>
+        <exclude name="**/__pycache__/**"/>
+        <exclude name="**/.bundle/**"/>
+        <exclude name="**/*.rbc/**"/>
+        <exclude name="**/vssver.scc/**"/>
+        <exclude name="**/vssver2.scc/**"/>
+    </patternset>
+    <patternset id="library.patterns">
+        <include name="*.war"/>
+        <include name="*.ear"/>
+        <include name="*.apk"/>
+        <include name="*.zip"/>
+        <include name="*.swc"/>
+        <include name="*.ane"/>
+        <include name="*.egg"/>
+        <include name="*.jar"/>
+    </patternset>
+    <patternset id="compiler.resources">
+        <exclude name="**/?*.java"/>
+        <exclude name="**/?*.form"/>
+        <exclude name="**/?*.class"/>
+        <exclude name="**/?*.groovy"/>
+        <exclude name="**/?*.scala"/>
+        <exclude name="**/?*.flex"/>
+        <exclude name="**/?*.kt"/>
+        <exclude name="**/?*.clj"/>
+    </patternset>
 
-      <jar destfile="${source.jar.dir}/strap-tizen-SDK-light.jar"
-           basedir="${source.output.dir}"
-      />
-  </target>
-  
-  <target name="compile.module.source.tests" depends="compile.module.source.production" description="compile module source; test classes" unless="skip.tests"/>
-  
-  <target name="clean.module.source" description="cleanup module">
-    <delete dir="${source.output.dir}"/>
-    <delete dir="${source.testoutput.dir}"/>
-  </target>
-  
-  <target name="init" description="Build initialization">
-    <!-- Perform any build initialization in this target -->
-  </target>
-  
-  <target name="clean" depends="clean.module.source" description="cleanup all"/>
-  
-  <target name="build.modules" depends="init, clean, compile.module.source" description="build all modules"/>
-  
-  <target name="all" depends="build.modules" description="build all"/>
+
+    <!-- Project Libraries -->
+
+    <path id="library.accessory-v1.0.0.classpath">
+        <pathelement location="${basedir}/lib/accessory-v1.0.0.jar"/>
+    </path>
+
+    <path id="library.android-support-v4.classpath">
+        <pathelement location="${basedir}/lib/android-support-v4.jar"/>
+    </path>
+
+    <path id="library.android.classpath">
+        <pathelement location="${basedir}/lib/build_deps/android.jar"/>
+    </path>
+
+    <path id="library.java-json.classpath">
+        <pathelement location="${basedir}/lib/java-json.jar"/>
+    </path>
+
+    <path id="library.sdk-v1.0.0.classpath">
+        <pathelement location="${basedir}/lib/sdk-v1.0.0.jar"/>
+    </path>
+
+    <!-- Modules -->
+
+
+    <!-- Module source -->
+
+    <dirname property="module.source.basedir" file="${ant.file}"/>
+
+
+    <property name="compiler.args.source" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+
+    <property name="source.output.dir" value="build/classes"/>
+    <property name="source.testoutput.dir" value="build/tests"/>
+    <property name="source.jar.dir" value="build"/>
+    <property name="lib.dir" value="${basedir}/lib"/>
+
+    <path id="source.module.bootclasspath">
+        <!-- Paths to be included in compilation bootclasspath -->
+    </path>
+
+    <path id="source.module.production.classpath">
+        <path refid="library.java-json.classpath"/>
+        <path refid="library.android-support-v4.classpath"/>
+        <path refid="library.sdk-v1.0.0.classpath"/>
+        <path refid="library.accessory-v1.0.0.classpath"/>
+        <path refid="library.android.classpath"/>
+    </path>
+
+    <path id="source.runtime.production.module.classpath">
+        <path refid="library.java-json.classpath"/>
+        <path refid="library.android-support-v4.classpath"/>
+        <path refid="library.sdk-v1.0.0.classpath"/>
+        <path refid="library.accessory-v1.0.0.classpath"/>
+    </path>
+
+    <path id="source.module.classpath">
+        <path refid="library.java-json.classpath"/>
+        <path refid="library.android-support-v4.classpath"/>
+        <path refid="library.sdk-v1.0.0.classpath"/>
+        <path refid="library.accessory-v1.0.0.classpath"/>
+        <path refid="library.android.classpath"/>
+    </path>
+
+    <path id="source.runtime.module.classpath">
+        <path refid="library.java-json.classpath"/>
+        <path refid="library.android-support-v4.classpath"/>
+        <path refid="library.sdk-v1.0.0.classpath"/>
+        <path refid="library.accessory-v1.0.0.classpath"/>
+    </path>
+
+
+    <patternset id="excluded.from.module.source">
+        <patternset refid="ignored.files"/>
+    </patternset>
+
+    <patternset id="excluded.from.compilation.source">
+        <patternset refid="excluded.from.module.source"/>
+    </patternset>
+
+    <path id="source.module.sourcepath">
+        <dirset dir="${module.source.basedir}">
+            <include name="src"/>
+        </dirset>
+    </path>
+
+
+    <target name="compile.module.source" depends="compile.module.source.production,compile.module.source.tests"
+            description="Compile module source"/>
+
+    <target name="compile.module.source.production" description="Compile module source; production classes">
+        <mkdir dir="${source.output.dir}"/>
+        <javac destdir="${source.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}"
+               memorymaximumsize="${compiler.max.memory}" fork="true">
+            <compilerarg line="${compiler.args.source}"/>
+            <bootclasspath refid="source.module.bootclasspath"/>
+            <classpath refid="source.module.production.classpath"/>
+            <src refid="source.module.sourcepath"/>
+            <patternset refid="excluded.from.compilation.source"/>
+        </javac>
+
+        <copy todir="${source.output.dir}">
+            <fileset dir="${module.source.basedir}/src">
+                <patternset refid="compiler.resources"/>
+                <type type="file"/>
+            </fileset>
+        </copy>
+
+        <jar destfile="${source.jar.dir}/strap-tizen-SDK-full.jar"
+             basedir="${source.output.dir}">
+            <fileset dir="${source.output.dir}" includes="**/*.class"/>
+            <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
+        </jar>
+
+        <jar destfile="${source.jar.dir}/strap-tizen-SDK-light.jar"
+             basedir="${source.output.dir}"
+                />
+
+        <javadoc sourcepath="${basedir}/src" destdir="${basedir}/../doc"/>
+
+    </target>
+
+    <target name="compile.module.source.tests" depends="compile.module.source.production"
+            description="compile module source; test classes" unless="skip.tests"/>
+
+    <target name="clean.module.source" description="cleanup module">
+        <delete dir="${source.output.dir}"/>
+        <delete dir="${source.testoutput.dir}"/>
+    </target>
+
+    <target name="init" description="Build initialization">
+        <!-- Perform any build initialization in this target -->
+    </target>
+
+    <target name="clean" depends="clean.module.source" description="cleanup all"/>
+
+    <target name="build.modules" depends="init, clean, compile.module.source" description="build all modules"/>
+
+    <target name="all" depends="build.modules" description="build all"/>
+
+    <!-- Generate javadocs for current project into ${doc.dir} -->
+    <target name="doc" depends="init" description="generate documentation">
+        <javadoc sourcepath="${basedir}/src" destdir="${basedir}/../doc"/>
+    </target>
 </project>
