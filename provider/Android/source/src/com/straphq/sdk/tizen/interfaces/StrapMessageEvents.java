@@ -1,0 +1,15 @@
+package com.straphq.sdk.tizen.interfaces;
+
+import com.straphq.sdk.tizen.dto.StrapMessageDTO;
+import com.straphq.sdk.tizen.exception.StrapSDKException;
+
+/**
+ * Defines the reqired events for Strap messages
+ */
+public interface StrapMessageEvents {
+
+    void eventOnMessage(StrapMessageDTO strapMessageDTO);
+
+    void eventOnError(StrapSDKException strapSDKException);
+
+}

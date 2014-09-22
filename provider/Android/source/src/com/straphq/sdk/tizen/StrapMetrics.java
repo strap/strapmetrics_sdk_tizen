@@ -1,50 +1,51 @@
 package com.straphq.sdk.tizen;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 
-public class StrapMetrics {
-  // base url for strap 
-  private String baseUrl = "https://api.straphq.com/create/visit/with/";
+import com.straphq.sdk.tizen.dto.StrapMessageDTO;
+import com.straphq.sdk.tizen.exception.StrapSDKException;
+import com.straphq.sdk.tizen.impl.TizenConnectionImpl;
+import com.straphq.sdk.tizen.interfaces.StrapSDK;
+import com.straphq.sdk.tizen.interfaces.StrapTizenSDKMessageListener;
 
-  // Check weather given data is related strap or not 
-  public boolean canHandleMessage(byte[] pData){
-		String data = new String(pData);
-	
-		JSONObject strapObject = null;
-		try {
-			strapObject = new JSONObject(data);
+import java.util.ArrayList;
 
-			if(strapObject.has("app_id"))
-				return true;
-			else
-				return false;
-		} catch (JSONException e1) {
-			return false;
-		} 
-  }
-  
-  //Send data to starp 
-  public void sendLogToStrap(byte[] pData){
-	  String data = new String(pData);
-	  String query = null;
-	  JSONObject strapObject = null;
-		try {
-			strapObject = new JSONObject(data);
-			String app_Id = strapObject.getString("app_id");
-			String resolution = strapObject.getString("resolution");
-			String useragent = strapObject.getString("useragent");
-			String action_url = strapObject.getString("action_url");
-			String act = strapObject.getString("act");
-			String visitor_id = strapObject.getString("visitor_id");
-			query = "?app_id=" + app_Id + "&visitor_id=" + visitor_id + "&resolution=" + resolution + "&useragent=" + useragent + "&action_url=" + action_url + "&act=" + act;
-	
-			// post a http request to strap with current activity/action
-			new PostLog(baseUrl, query);
-		} catch (JSONException e1) {
-		} 
-  }
-  
-	
+public class StrapMetrics extends TizenConnectionImpl implements StrapSDK {
 
+    private static final Integer DEFAULT_CHANNEL_ID = 835462;
+
+    public StrapMetrics (android.content.Context context, Integer channelId){
+        setChannelId(channelId);
+        setContext(context);
+    }
+
+    public StrapMetrics(android.content.Context context){
+        setChannelId(DEFAULT_CHANNEL_ID);
+        setContext(context);
+    }
+
+    private ArrayList<StrapTizenSDKMessageListener> messageListeners = new ArrayList<StrapTizenSDKMessageListener>();
+
+    @Override
+    public void addMessageListener(StrapTizenSDKMessageListener strapTizenSDKMessageListener) {
+        messageListeners.add(strapTizenSDKMessageListener);
+    }
+
+    @Override
+    public void processReceivedData(StrapMessageDTO strapMessageDTO) {
+       strapSDKUtils.processReceivedData(strapMessageDTO);
+    }
+
+    @Override
+    public void eventOnMessage(StrapMessageDTO strapMessageDTO) {
+        for(StrapTizenSDKMessageListener listener : messageListeners ){
+            listener.onMessage(strapMessageDTO);
+        }
+    }
+
+    @Override
+    public void eventOnError(StrapSDKException strapSDKException) {
+        for(StrapTizenSDKMessageListener listener : messageListeners ){
+            listener.onError(strapSDKException);
+        }
+    }
 }
