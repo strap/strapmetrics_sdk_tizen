@@ -10,6 +10,7 @@ var fs = require("fs"),
     uglify = require("uglify-js"),
     async = require("async"),
     rr = require("recursive-readdir"),
+    beautify = require("js-beautify").js_beautify,
     path = require("path");
 
 var tasks = [];
@@ -35,10 +36,27 @@ tasks.push(function (callback) {
         else {
             console.log(files);
             try {
-                fs.writeFileSync(options.destination.bundle, uglify.minify(files, {
-                    beautify: true,
-                    indent_level: 4
-                }).code);
+                fs.writeFileSync(options.destination.bundle, "");
+                files.forEach(function (file) {
+                    fs.appendFileSync(options.destination.bundle, fs.readFileSync(file) + "\n");
+                });
+                fs.writeFileSync(options.destination.bundle, beautify(fs.readFileSync(options.destination.bundle).toString(), {
+                    "indent_size": 4,
+                    "indent_char": " ",
+                    "indent_level": 0,
+                    "indent_with_tabs": false,
+                    "preserve_newlines": false,
+                    "max_preserve_newlines": 1,
+                    "jslint_happy": false,
+                    "brace_style": "collapse",
+                    "keep_array_indentation": false,
+                    "keep_function_indentation": false,
+                    "space_before_conditional": true,
+                    "break_chained_methods": false,
+                    "eval_code": false,
+                    "unescape_strings": false,
+                    "wrap_line_length": 0
+                }));
             } catch (c) {
                 return callback(c);
             }
