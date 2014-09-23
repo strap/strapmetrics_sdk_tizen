@@ -24,6 +24,9 @@ public class StrapMessageDTO {
         accl = parsedData.getString("accl");
     }
 
+    public StrapMessageDTO() {
+    }
+
     public String appId;
     public String resolution;
     public String userAgent;
