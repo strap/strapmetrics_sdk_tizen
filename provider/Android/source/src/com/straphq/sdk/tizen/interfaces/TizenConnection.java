@@ -9,7 +9,4 @@ public interface TizenConnection extends StrapMessageEvents {
 
     void setChannelId(Integer channelId);
 
-    void setContext(Context context);
-
-   //Todo
 }

@@ -28,4 +28,11 @@ public class StrapSDKUtils implements StrapUtils {
             return false;
         }
     }
+
+    static StrapSDKUtils bean = null;
+
+    public static StrapSDKUtils getBean() {
+        if (bean == null) bean = new StrapSDKUtils();
+        return bean;
+    }
 }

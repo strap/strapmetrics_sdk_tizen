@@ -12,4 +12,6 @@ public interface StrapMessageEvents {
 
     void eventOnError(StrapSDKException strapSDKException);
 
+    void eventOnConnectionLost(StrapSDKException strapSDKException);
+
 }

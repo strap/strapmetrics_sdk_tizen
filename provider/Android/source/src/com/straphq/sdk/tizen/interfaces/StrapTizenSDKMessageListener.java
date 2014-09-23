@@ -11,4 +11,7 @@ public interface StrapTizenSDKMessageListener {
     public void onMessage(StrapMessageDTO strapMessageDTO);
 
     public void onError(StrapSDKException strapSDKException);
+
+    public void onConnectionLost(StrapSDKException strapSDKException);
+
 }
