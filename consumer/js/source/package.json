@@ -1,8 +1,11 @@
 {
-    "name": "Strap_TizenConsumerSDK",
-    "version": "0.0.1",
-    "description": "Contains the sources for the Tizen JS consumer SDK",
-    "dependencies": {
-        "uglify-js": "^2.4.15"
-    }
+  "name": "Strap_TizenConsumerSDK",
+  "version": "0.0.1",
+  "description": "Contains the sources for the Tizen JS consumer SDK",
+  "dependencies": {
+    "async": "^0.9.0",
+    "colors": "^0.6.2",
+    "recursive-readdir": "^1.2.0",
+    "uglify-js": "^2.4.15"
+  }
 }
