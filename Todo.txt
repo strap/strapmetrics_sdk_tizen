@@ -16,3 +16,4 @@ TODO
 8) Make the first JS build
 9) Link all Readmes in the main Readme. Also add the back button and links to another readmes in all readme
 10) Add sample projects
+11) Fix the uglify for bundle file
