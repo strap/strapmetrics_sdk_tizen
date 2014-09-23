@@ -17,3 +17,5 @@ TODO
 9) Link all Readmes in the main Readme. Also add the back button and links to another readmes in all readme
 10) Add sample projects
 11) Fix the uglify for bundle file
+12) remove additional classes from bundle
+13) add raw event listener
