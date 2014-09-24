@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="source" default="all">
-
-    <!-- Uncomment the following property if no tests compilation is needed -->
-    <!--
-    <property name="skip.tests" value="true"/>
-     -->
-
     <!-- Compiler options -->
 
     <property name="compiler.debug" value="on"/>
@@ -64,7 +58,7 @@
     </path>
 
     <path id="library.android-support-v4.classpath">
-        <pathelement location="${basedir}/lib/android-support-v4.jar"/>
+        <pathelement location="/lib/build_deps/android-support-v4.jar"/>
     </path>
 
     <path id="library.android.classpath">
@@ -76,7 +70,7 @@
     </path>
 
     <path id="library.sdk-v1.0.0.classpath">
-        <pathelement location="${basedir}/lib/sdk-v1.0.0.jar"/>
+        <pathelement location="/lib/build_deps/sdk-v1.0.0.jar"/>
     </path>
 
     <!-- Modules -->
@@ -108,7 +102,6 @@
 
     <path id="source.runtime.production.module.classpath">
         <path refid="library.java-json.classpath"/>
-        <path refid="library.android-support-v4.classpath"/>
         <path refid="library.sdk-v1.0.0.classpath"/>
         <path refid="library.accessory-v1.0.0.classpath"/>
     </path>
@@ -123,7 +116,6 @@
 
     <path id="source.runtime.module.classpath">
         <path refid="library.java-json.classpath"/>
-        <path refid="library.android-support-v4.classpath"/>
         <path refid="library.sdk-v1.0.0.classpath"/>
         <path refid="library.accessory-v1.0.0.classpath"/>
     </path>
@@ -165,13 +157,12 @@
             </fileset>
         </copy>
 
-        <jar destfile="${source.jar.dir}/strap-tizen-SDK-full.jar"
-             basedir="${source.output.dir}">
+        <jar destfile="${source.jar.dir}/strap-tizen-SDK-bundle.jar">
             <fileset dir="${source.output.dir}" includes="**/*.class"/>
             <zipgroupfileset dir="${lib.dir}" includes="*.jar"/>
         </jar>
 
-        <jar destfile="${source.jar.dir}/strap-tizen-SDK-light.jar"
+        <jar destfile="${source.jar.dir}/strap-tizen-SDK-core.jar"
              basedir="${source.output.dir}"
                 />
 

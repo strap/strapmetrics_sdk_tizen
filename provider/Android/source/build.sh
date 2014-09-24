@@ -2,7 +2,7 @@ rm -rf ./build
 
 ant -f antfile.xml
 
-cp -rfv build/strap-tizen-SDK-full.jar ../strap-tizen-SDK-full.jar
+cp -rfv build/strap-tizen-SDK-bundle.jar ../strap-tizen-SDK-bundle.jar
 
-cp -rfv build/strap-tizen-SDK-light.jar ../strap-tizen-SDK-light.jar
+cp -rfv build/strap-tizen-SDK-core.jar ../strap-tizen-SDK-core.jar
 
