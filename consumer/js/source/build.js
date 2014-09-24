@@ -11,9 +11,12 @@ var fs = require("fs"),
     async = require("async"),
     rr = require("recursive-readdir"),
     beautify = require("js-beautify").js_beautify,
+    shell = require("shelljs/global"),
     path = require("path");
 
 var tasks = [];
+
+var VERSION = "0.2.6-rc1";
 
 var options = {
     source: path.join(__dirname, "/src/"),
@@ -22,8 +25,8 @@ var options = {
         min: path.join(__dirname, "lib/strap.tizen.sdk.min.js")
     },
     copyTo: {
-        bundle: path.join(__dirname, "../strap.tizen.sdk.js"),
-        min: path.join(__dirname, "../strap.tizen.sdk.min.js")
+        bundle: path.join(__dirname, "../strap.tizen.sdk." + VERSION + ".js"),
+        min: path.join(__dirname, "../strap.tizen.sdk." + VERSION + ".min.js")
     }
 };
 
@@ -73,6 +76,12 @@ tasks.push(function (callback) {
         return callback(c);
     }
     return callback(null);
+});
+
+//Delete old lib files
+tasks.push(function (callback) {
+    exec("rm -rfv ../strap.tizen.sdk.*.js");
+    callback();
 });
 
 //Copy lib files
