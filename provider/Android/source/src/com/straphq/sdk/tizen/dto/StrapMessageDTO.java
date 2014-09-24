@@ -14,14 +14,14 @@ public class StrapMessageDTO {
     public StrapMessageDTO(String jsonData) throws JSONException {
         JSONObject parsedData = null;
         parsedData = new JSONObject(jsonData);
-        appId = parsedData.getString("app_id");
-        resolution = parsedData.getString("resolution");
-        userAgent = parsedData.getString("useragent");
-        action_url = parsedData.getString("action_url");
-        act = parsedData.getString("act");
-        visitor_timeoffset = parsedData.getString("visitor_timeoffset");
-        visitor_id = parsedData.getString("visitor_id");
-        accl = parsedData.getString("accl");
+        appId = parsedData.optString("app_id");
+        resolution = parsedData.optString("resolution");
+        userAgent = parsedData.optString("useragent");
+        action_url = parsedData.optString("action_url");
+        act = parsedData.optString("act");
+        visitor_timeoffset = parsedData.optString("visitor_timeoffset");
+        visitor_id = parsedData.optString("visitor_id");
+        accl = parsedData.optString("accl");
     }
 
     public StrapMessageDTO() {
