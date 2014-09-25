@@ -14,7 +14,7 @@ import com.straphq.sdk.tizen.exception.StrapSDKException;
 import com.straphq.sdk.tizen.interfaces.StrapTizenSDKMessageListener;
 
 public class OceanSurveyFullyManagedService extends StrapMetrics {
-    public static final String TAG = "OceanSurveyFullyService";
+    public static final String TAG = "OceanSurveyFullyManagedService";
 
     public static final int SERVICE_CONNECTION_RESULT_OK = 0;
 
@@ -34,13 +34,13 @@ public class OceanSurveyFullyManagedService extends StrapMetrics {
     }
 
     @Override
-    protected void onFindPeerAgentResponse(SAPeerAgent arg0, int i) {
+    protected void onFindPeerAgentResponse(SAPeerAgent saPeerAgent, int i) {
         // TODO Auto-generated method stub
 
     }
 
     @Override
-    protected void onServiceConnectionResponse(SASocket arg0, int i) {
+    protected void onServiceConnectionResponse(SASocket saSocket, int i) {
         // TODO Auto-generated method stub
 
     }
@@ -61,10 +61,10 @@ public class OceanSurveyFullyManagedService extends StrapMetrics {
             SA mAccessory = new SA();
             try {
                 mAccessory.initialize(this);
-                Log.d("SAP PROVIDER", "ON CREATE TRY BLOCK");
+                Log.d("OceanSurveyFullyManagedService", "ON CREATE TRY BLOCK");
             } catch (SsdkUnsupportedException e) {
                 // Error Handling
-                Log.d("SAP PROVIDER", "ON CREATE TRY BLOCK ERROR UNSUPPORTED SDK");
+                Log.d("OceanSurveyFullyManagedService", "ON CREATE TRY BLOCK ERROR UNSUPPORTED SDK");
             } catch (Exception e1) {
                 Log.e(TAG, "Cannot initialize Accessory package.");
                 e1.printStackTrace();
