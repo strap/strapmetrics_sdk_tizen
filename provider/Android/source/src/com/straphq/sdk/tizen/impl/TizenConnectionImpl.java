@@ -62,5 +62,7 @@ public abstract class TizenConnectionImpl extends SAAgent implements TizenConnec
         }
     }
 
-    public abstract void onCreate();
+    public void onCreate(){
+    super.onCreate();
+    };
 }
