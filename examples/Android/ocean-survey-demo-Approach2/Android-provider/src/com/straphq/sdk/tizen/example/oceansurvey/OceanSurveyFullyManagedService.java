@@ -46,11 +46,11 @@ public class OceanSurveyFullyManagedService extends SAAgent{
       Log.d("OceanSurveyFullyManagedService", "SERVICE CONSTRUCTOR");
       }
 
-      public class SAPServiceProviderConnection extends SASocket {
+      public class OceanSurveyFullyManagedServiceConnection extends SASocket {
             private int mConnectionId;
 
             public OceanSurveyFullyManagedServiceConnection() {
-            super(SAPServiceProviderConnection.class.getName());
+            super(OceanSurveyFullyManagedServiceConnection.class.getName());
             Log.d("OceanSurveyFullyManagedService", "OCEANSURVEY CONNECTION CONSTRUCTOR");
             }
 
@@ -77,7 +77,7 @@ public class OceanSurveyFullyManagedService extends SAAgent{
             {
             //Do Something with non strap related data
             }
-   			}
+   		    }
 
             @Override
             protected void onServiceConnectionLost(int errorCode) {
