@@ -25,12 +25,17 @@ public class OceanSurveyFullyManagedService extends SAAgent{
 
       public static final String TAG = "OceanSurveyFullyManagedService";
 
-      public final static int SERVICE_CONNECTION_RESULT_OK = 0;
-
       public final static int CHANNEL_ID = 123;
 
       HashMap<Integer, OceanSurveyFullyManagedServiceConnection> connectionMap = null;
 
+      public static final String SEALION = "SEALION";
+          public static final String DOLPHIN = "DOLPHIN";
+          public static final String PELICAN = "PELICAN";
+
+          int SEALION_COUNT = 0;
+          int DOLPHIN_COUNT = 0;
+          int PELICAN_COUNT = 0;
 
       private final IBinder mIBinder = new LocalBinder();
 
@@ -75,9 +80,35 @@ public class OceanSurveyFullyManagedService extends SAAgent{
             }
             else
             {
-            //Do Something with non strap related data
+            String message = new String(data);
+            if(message.equals(SEALION)){
+            SEALION_COUNT++;
+            message += SEALION_COUNT;
+            }else {
+            }if(message.equals(DOLPHIN)){
+            DOLPHIN_COUNT++;
+            message += DOLPHIN_COUNT;
+            }else if(message.equals(PELICAN)){
+            PELICAN_COUNT++;
+            message += PELICAN_COUNT;
             }
-   		    }
+
+            final OceanSurveyFullyManagedServiceConnection uHandler = connectionMap.get(Integer.parseInt(String.valueOf(mConnectionId)));
+            if(uHandler == null){
+            Log.e(TAG,"Error, can not get OceanSurveyFullyManagedServiceConnection handler");
+            return;
+            }
+            new Thread(new Runnable() {
+            public void run() {
+            try {
+            uHandler.send(CHANNEL_ID, message.getBytes());
+            } catch (IOException e) {
+            e.printStackTrace();
+            }
+            }
+            }).start();
+            }
+            }
 
             @Override
             protected void onServiceConnectionLost(int errorCode) {
@@ -87,7 +118,7 @@ public class OceanSurveyFullyManagedService extends SAAgent{
             connectionMap.remove(mConnectionId);
             }
             }
-          }
+      }
 
             @Override
             public void onCreate() {
@@ -153,6 +184,6 @@ public class OceanSurveyFullyManagedService extends SAAgent{
             Log.d("OceanSurveyFullyManagedService", "onBIND");
             return mIBinder;
             }
-    }
+}
 
 
