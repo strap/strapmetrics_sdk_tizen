@@ -37,12 +37,12 @@ public abstract class TizenConnectionImpl extends SAAgent implements TizenConnec
         }
 
         @Override
-        protected void onServiceConnectionLost(int i) {
-            eventOnConnectionLost(new StrapSDKException("Connection Lost. Status: " + i));
+        protected void onServiceConnectionLost(int errorCode) {
+            eventOnConnectionLost(new StrapSDKException("Connection Lost. Status: " + errorCode));
         }
 
         @Override
-        public void onReceive(int i, byte[] bytes) {
+        public void onReceive(int channelId, byte[] bytes) {
             if (strapSDKUtils.canHandleMessage(bytes)) {
                 //process strap related data
                 try {
@@ -67,8 +67,8 @@ public abstract class TizenConnectionImpl extends SAAgent implements TizenConnec
         }
 
         @Override
-        public void onError(int i, String s, int i2) {
-            eventOnError(new StrapSDKException("Error Occurred: " + i + " " + s + " " + i2));
+        public void onError(int channelId, String errorString, int error) {
+            eventOnError(new StrapSDKException("Error Occurred: " + channelId + " " + errorString + " " + error));
         }
     }
 
