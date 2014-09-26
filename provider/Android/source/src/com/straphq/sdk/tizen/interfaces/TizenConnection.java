@@ -7,6 +7,7 @@ import android.content.Context;
  */
 public interface TizenConnection extends StrapMessageEvents {
 
+    //sets channelId for peer communication
     void setChannelId(Integer channelId);
 
 }

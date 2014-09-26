@@ -7,10 +7,10 @@ import com.straphq.sdk.tizen.dto.StrapMessageDTO;
  * */
 public interface StrapSDK {
 
-
+    //listener related for data communication
     public void addMessageListener(StrapTizenSDKMessageListener strapTizenSDKMessageListener);
 
-    //Send data to strap
+    //Send data to Strap HQ
     public void processReceivedData(StrapMessageDTO strapMessageDTO);
 
 }

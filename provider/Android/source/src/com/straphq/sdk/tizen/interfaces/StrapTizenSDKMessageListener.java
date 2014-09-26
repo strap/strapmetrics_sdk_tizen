@@ -8,12 +8,16 @@ import com.straphq.sdk.tizen.exception.StrapSDKException;
  */
 public interface StrapTizenSDKMessageListener {
 
+    //handler for non strap related data
     public void onMessage(byte[] data);
 
+    //handler for strap related data
     public void onStrapMessage(StrapMessageDTO strapMessageDTO);
 
+    //handler for on error
     public void onError(StrapSDKException strapSDKException);
 
+    //handler for on connection lost
     public void onConnectionLost(StrapSDKException strapSDKException);
 
 }

@@ -76,10 +76,12 @@ public abstract class StrapMetrics extends TizenConnectionImpl implements StrapS
         }
     }
 
+    //check if the data is related to strap or not
     public static boolean canHandleMessage(byte[] messageByteArray) {
         return StrapSDKUtils.getBean().canHandleMessage(messageByteArray);
     }
 
+    //send strap related data to strap metrics
     public static void logReceivedData(StrapMessageDTO strapMessageDTO) {
         StrapSDKUtils.getBean().processReceivedData(strapMessageDTO);
     }
