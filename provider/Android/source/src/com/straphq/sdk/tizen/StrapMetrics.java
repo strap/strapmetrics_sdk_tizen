@@ -49,9 +49,16 @@ public abstract class StrapMetrics extends TizenConnectionImpl implements StrapS
     }
 
     @Override
-    public void eventOnMessage(StrapMessageDTO strapMessageDTO) {
+    public void eventOnMessage(byte[] data) {
         for (StrapTizenSDKMessageListener listener : messageListeners) {
-            listener.onMessage(strapMessageDTO);
+            listener.onMessage(data);
+        }
+    }
+
+    @Override
+        public void eventOnStrapMessage(StrapMessageDTO strapMessageDTO) {
+            for (StrapTizenSDKMessageListener listener : messageListeners) {
+                listener.onStrapMessage(strapMessageDTO);
         }
     }
 

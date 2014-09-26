@@ -44,8 +44,9 @@ public abstract class TizenConnectionImpl extends SAAgent implements TizenConnec
         @Override
         public void onReceive(int i, byte[] bytes) {
             if (strapSDKUtils.canHandleMessage(bytes)) {
+                //process strap related data
                 try {
-                    eventOnMessage(new StrapMessageDTO(new String(bytes)));
+                    eventOnStrapMessage(new StrapMessageDTO(new String(bytes)));
                 } catch (JSONException exception) {
                     exception.printStackTrace();
                     eventOnError(new StrapSDKException(exception.getMessage()));
@@ -53,6 +54,15 @@ public abstract class TizenConnectionImpl extends SAAgent implements TizenConnec
                     exception.printStackTrace();
                     eventOnError(new StrapSDKException(exception.getMessage()));
                 }
+            }
+            else {
+               //process non strap data
+               try {
+                    eventOnMessage(bytes);
+               } catch (Exception exception) {
+                    exception.printStackTrace();
+                    eventOnError(new StrapSDKException(exception.getMessage()));
+               }
             }
         }
 

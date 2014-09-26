@@ -8,7 +8,9 @@ import com.straphq.sdk.tizen.exception.StrapSDKException;
  */
 public interface StrapMessageEvents {
 
-    void eventOnMessage(StrapMessageDTO strapMessageDTO);
+    void eventOnMessage(byte[] data);
+
+    void eventOnStrapMessage(StrapMessageDTO strapMessageDTO);
 
     void eventOnError(StrapSDKException strapSDKException);
 
