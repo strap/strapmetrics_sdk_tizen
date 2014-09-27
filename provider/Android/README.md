@@ -15,7 +15,7 @@ There are 2 approaches to use Strap Metrics in your Tizen Code:
 Approach 1:
 
 4. Add the following imports in the class which contains your Tizen logic.
-
+```java
     import java.io.IOException;
 
     import android.content.Intent;
@@ -31,7 +31,7 @@ Approach 1:
     import com.straphq.sdk.tizen.exception.StrapSDKException;
     import com.straphq.sdk.tizen.impl.TizenConnectionImpl;
     import com.straphq.sdk.tizen.interfaces.StrapTizenSDKMessageListener;
-
+```
 5. Use Strap Metrics SDK in your Tizen Code:
     a) Extend StrapMetrics Class in your Main Service Class.
     public class OceanSurveyFullyManagedService extends StrapMetrics {
