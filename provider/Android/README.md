@@ -111,10 +111,11 @@ Approach 1:
 Approach 2:
 
 4. Add the following imports in the class which contains your Tizen logic.
-
+    '''java
     import com.straphq.sdk.tizen.StrapMetrics;
     import org.json.JSONException;
-
+    '''
+    
 5. Strap Metrics methods that developer can include in his/her logic for this approach are:
     a) canHandleMessage: returns a boolean value true/false depending on the type of data passed to it as argument i.e if the data is strap related then it will return true otherwise false.
     b) logReceivedData: sends strap data to strap metrics.
