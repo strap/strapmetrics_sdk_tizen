@@ -1,0 +1,32 @@
+{
+    font-family: Verdana, Lucida Sans, Arial, Helvetica, sans-serif;
+}
+
+body {
+    margin: 0px auto;
+    background-color:white;
+}
+
+.contents {
+    display: flex;
+    display: -webkit-flex;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    height:320px;
+}
+
+
+.content_text {
+    font-weight:bold;
+    font-size:5em;
+    color: blue;
+}
+
+.ui-title {
+    color: blue;
+    font-size: 24px;
+    white-space: nowrap;
+    margin: 0px;
+    padding-left: 16px;
+    padding-right: 16px;
+}

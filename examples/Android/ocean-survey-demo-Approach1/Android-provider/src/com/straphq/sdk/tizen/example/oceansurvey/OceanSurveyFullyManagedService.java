@@ -23,14 +23,6 @@ public class OceanSurveyFullyManagedService extends StrapMetrics {
 
     TizenConnectionImpl.TizenConnectionListener mConnection;
 
-    public static final String SEALION = "SEALION";
-    public static final String DOLPHIN = "DOLPHIN";
-    public static final String PELICAN = "PELICAN";
-
-    int SEALION_COUNT = 0;
-    int DOLPHIN_COUNT = 0;
-    int PELICAN_COUNT = 0;
-
 
 
     private final IBinder mBinder = new LocalBinder();
@@ -109,20 +101,8 @@ public class OceanSurveyFullyManagedService extends StrapMetrics {
                 }
 
                 public void onMessage(byte[] data) {
+                //return data from provider to consumer
                 String message = new String(data);
-                if(message.equals(SEALION)){
-                    SEALION_COUNT++;
-                    message += SEALION_COUNT;
-                }else {
-                }if(message.equals(DOLPHIN)){
-                DOLPHIN_COUNT++;
-                message += DOLPHIN_COUNT;
-                }else if(message.equals(PELICAN)){
-                PELICAN_COUNT++;
-                message += PELICAN_COUNT;
-                }
-
-                Log.d("ANIMAL_NAME_WITH_COUNT", message);
                 try {
                 mConnection.send(CHANNEL_ID, message.getBytes());
                 } catch (IOException e) {
