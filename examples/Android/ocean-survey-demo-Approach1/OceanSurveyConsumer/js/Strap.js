@@ -71,11 +71,8 @@ var Strap = (function () {
                 SAAgent = agents[0];
                 SAAgent.setPeerAgentFindListener(peerAgentFindCallback);
                 SAAgent.findPeerAgents();
-                console.log(" onsuccess " + SAAgent.name);
-                console.log(JSON.stringify(SAAgent));
             } else {
                 alert("Not found SAAgent!!");
-                console.log(" onsuccess else");
             }
         } catch (err) {
             console.log("onsuccess exception [" + err.name + "] msg["
@@ -107,9 +104,6 @@ var Strap = (function () {
     // handler for serviceConnectionListener
     var agentCallback = {
         onconnect: function (socket) {
-            console.log("agentCallback onconnect" + socket);
-            console.log(socket);
-            console.log(JSON.stringify(socket));
             SASocket = socket;
             alert("SAP Connection established with RemotePeer");
 
@@ -228,7 +222,6 @@ var Strap = (function () {
  // Send app start log to strap
     var strap_start = function () {
      	if(SASocket){
-     		console.log("start app");
      		Strap.prototype.strap_log_event.call(this,"/STRAP_START");
      	}
      }
