@@ -32,9 +32,13 @@ public abstract class TizenConnectionImpl extends SAAgent implements TizenConnec
 
     public class TizenConnectionListener extends SASocket {
 
-        protected TizenConnectionListener(String s) {
+        public TizenConnectionListener(String s) {
             super(s);
         }
+
+         public TizenConnectionListener() {
+             super(TizenConnectionListener.class.getName());
+         }
 
         @Override
         protected void onServiceConnectionLost(int errorCode) {
