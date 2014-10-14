@@ -1,0 +1,19 @@
+<resources>
+    <application name="OceanSurveyConsumer">
+        <serviceProfile
+                id="/system/oceansurvey"
+                name="oceansurvey"
+                role="consumer"
+                version="2.0">
+            <supportedTransports>
+                <transport type="TRANSPORT_WIFI" />
+            </supportedTransports>
+            <serviceChannel
+                    id="104"
+                    dataRate="low"
+                    priority="low"
+                    reliability= "enable">
+            </serviceChannel>
+        </serviceProfile>
+    </application>
+</resources>
