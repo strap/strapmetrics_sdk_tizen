@@ -10,6 +10,7 @@ var Strap = (function () {
     var sampleData = [];
     const NUM_SAMPLES = 200; // Bath of Samples to be send at a time
 
+    // Constructor for strap
     var Strap = function (app_id, channel_id, Provider_App_Name, strapdata) {
         SAAgent = null;
         SASocket = null;
@@ -28,9 +29,6 @@ var Strap = (function () {
             if (strap_obj.hasOwnProperty(attr))
                 strap_obj[attr] = strapdata[attr];
         }
-
-        //Send strap start event
-        strap_log_event("/STRAP_START");
 
         if (!acclBufferData) {
             acclBufferData = window.localStorage["strap_accl"];
@@ -84,6 +82,7 @@ var Strap = (function () {
                 + err.message + "]");
         }
     }
+
     // handler for peerAgentFindListener
     var peerAgentFindCallback = {
         onpeeragentfound: function (peerAgent) {
@@ -104,6 +103,7 @@ var Strap = (function () {
         },
         onerror: onerror
     }
+
     // handler for serviceConnectionListener
     var agentCallback = {
         onconnect: function (socket) {
@@ -112,7 +112,11 @@ var Strap = (function () {
             console.log(JSON.stringify(socket));
             SASocket = socket;
             alert("SAP Connection established with RemotePeer");
-            createHTML("startConnection");
+
+            strap_start();
+
+            // Send app start log to starp
+
 
             SASocket.setSocketStatusListener(function (reason) {
                 console.log("Service connection lost, Reason : [" + reason
@@ -122,10 +126,12 @@ var Strap = (function () {
         },
         onerror: onerror
     };
+
     // Receive listener's handler for accelerometer data
     var onAcclReceive = function (channelId, data) {
         // do something
     }
+
     // send event log to strap
     var strap_log_accl = function (data) {
         var strap_obj_copy = strap_api_clone(strap_obj);
@@ -134,6 +140,7 @@ var Strap = (function () {
         SASocket.setDataReceiveListener(onAcclReceive);
         SASocket.sendData(CHANNELID, JSON.stringify(strap_obj_copy));
     }
+
     // adding devicemotion event listener to collect accelerometer data
     window.addEventListener("devicemotion", handleMotionEvent, true);
     // handler for devicemotion event listener for sending accelerometer data
@@ -143,7 +150,7 @@ var Strap = (function () {
         var z_c = -event.accelerationIncludingGravity.z;
         var ts = event.timeStamp;
 
-        // change unit from meter/square second to milliG’s
+        // change unit from meter/square second to milliGâ€™s
         x_c = x_c * 101.97;
         y_c = y_c * 101.97;
         z_c = z_c * 101.97;
@@ -164,6 +171,11 @@ var Strap = (function () {
 
     Strap.prototype = {
         constructor: Strap,
+
+        getSASocket : function() {
+            return SASocket;
+        },
+
         // Receive listener's handler for non strap related data
         onreceive: function (channelId, data) {
             // TODO
@@ -181,12 +193,6 @@ var Strap = (function () {
             strap_obj_copy['action_url'] = data;
             strap_send_data(strap_obj_copy);
         },
-        // deinitialize or release strap object
-        strap_deinit: function () {
-            strap_log_event("/STRAP_FINISH");
-            delete this;
-        },
-
 
         /**
          * Communication related methods with phone
@@ -208,10 +214,9 @@ var Strap = (function () {
         disconnect: function () {
             try {
                 if (SASocket != null) {
+                    strap_finish(close_connection);
                     console.log(" DISCONNECT SASOCKET NOT NULL");
-                    SASocket.close();
-                    SASocket = null;
-                    createHTML("closeConnection");
+
                 }
             } catch (err) {
                 console.log(" DISCONNECT ERROR: exception [" + err.name
@@ -219,5 +224,34 @@ var Strap = (function () {
             }
         }
     }
+
+    // Send app start log to strap
+    var strap_start = function () {
+        if(SASocket){
+            console.log("start app");
+            Strap.prototype.strap_log_event.call(this,"/STRAP_START");
+        }
+    }
+
+
+    // deinitialize or release strap object
+    var strap_finish = function (callback) {
+        if(SASocket){
+            Strap.prototype.strap_log_event.call(this,"/STRAP_FINISH");
+            delete this;
+            setTimeout(function(){
+                callback();
+            }, 1000);
+        }
+    }
+
+    // Close socket connection
+    var close_connection = function () {
+        if(SASocket){
+            SASocket.close();
+            SASocket = null;
+        }
+    }
+
     return Strap;
 })();
