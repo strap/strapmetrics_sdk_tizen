@@ -37,53 +37,71 @@ var strap = null;
 var sealionCount = 0;
 var dolphinCount = 0;
 var pelicanCount = 0;
-window.onload = function () {
+
+window.onload = function() {
     // add eventListener for tizenhwkey
     document.addEventListener('tizenhwkey', function(e) {
-        if(e.keyName == "back")
+        if (e.keyName == "back")
             tizen.application.getCurrentApplication().exit();
     });
+
+    // initialize strap object on app load
     var strapdata = {
-        resolution: "144x168",
-        useragent: "TIZEN"
+        resolution : "144x168",
+        useragent : "TIZEN"
     };
     strap = new Strap(strap_app_id, CHANNELID, ProviderAppName, strapdata);
-    strap.onreceive = function(channelId, data){
-        console.log(data);
-    }
-   
 }
 
+//Establish connection between wear and phone device
 function connect() {
     strap.connect();
 }
 
-function disconnect(){
+//Disconnect connection between wear and phone device
+function disconnect() {
     strap.disconnect();
 }
 
+// send event to strap on sealion button click and increment in count bye 1
 function sealion_click() {
-     if(strap.getSASocket()){
-    	var log = document.getElementById('sealion');
-    	log.innerHTML = ++sealionCount;
-       	strap.strap_log_event("/sealion");
-     }
+    if (strap.getSASocket()) {
+        var log = document.getElementById('sealion');
+        log.innerHTML = ++sealionCount;
+        strap.strap_log_event("/sealion");
+    }
 }
 
+//send event to strap on dolphin button click and increment in count bye 1
 function dolphin_click() {
-	if(strap.getSASocket()){
-    	var log = document.getElementById('dolphin');
-    	log.innerHTML = ++dolphinCount;
-    	strap.strap_log_event("/dolphin");
-	}
+    if (strap.getSASocket()) {
+        var log = document.getElementById('dolphin');
+        log.innerHTML = ++dolphinCount;
+        strap.strap_log_event("/dolphin");
+    }
 }
 
+//send event to strap on dolphin pelican click and increment in count bye 1
 function pelican_click() {
-	if(strap.getSASocket()){
-    	var log = document.getElementById('pelican');
-    	log.innerHTML = ++pelicanCount;
-    	strap.strap_log_event("/pelican");
-	}
+    if (strap.getSASocket()) {
+        var log = document.getElementById('pelican');
+        log.innerHTML = ++pelicanCount;
+        strap.strap_log_event("/pelican");
+    }
 }
 
+// show non strap related communication with provider
+function time_click() {
+    var sasocket = strap.getSASocket();
+    sasocket.setDataReceiveListener(onreceive);
+    sasocket.sendData(CHANNELID, "Hello User");
 
+}
+
+// call back of provider response for non strap related call 
+var onreceive = function(channelId, data) {
+    // Do your work with response data
+    console.log(data);
+    var timeDiv = document.getElementById('currentTime');
+    timeDiv.innerHTML = data;
+}

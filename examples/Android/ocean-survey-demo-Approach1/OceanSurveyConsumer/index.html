@@ -21,6 +21,8 @@
            style="width: 32%; height: 60px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" />
     <input type=button value="Disconnect" onclick="disconnect();"
            style="width: 32%; height: 60px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" />
+    <input type=button value="Time" onclick="time_click();"
+           style="width: 32%; height: 60px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" />
 </div>
 <div>
     <input type=button value="SEALION" onclick="sealion_click();"
@@ -31,14 +33,21 @@
            style="width: 32%; height: 60px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);" />
 
 </div>
-<div style="display:inline" >
-    SEALION: <p style="display:inline" id="sealion">0</p>
+<div style="display: inline">
+    SEALION:
+    <p style="display: inline" id="sealion">0</p>
 </div>
 <div>
-    DOLPHIN: <p style="display:inline" id="dolphin">0</p>
+    DOLPHIN:
+    <p style="display: inline" id="dolphin">0</p>
 </div>
 <div>
-    PELICAN: <p style="display:inline" id="pelican">0</p>
+    PELICAN:
+    <p style="display: inline" id="pelican">0</p>
+</div>
+<div>
+    TIME:
+    <p style="display: inline" id="currentTime">0</p>
 </div>
 </body>
 </html>

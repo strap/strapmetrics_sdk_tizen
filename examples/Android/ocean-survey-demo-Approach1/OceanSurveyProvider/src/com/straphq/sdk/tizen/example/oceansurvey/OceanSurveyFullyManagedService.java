@@ -103,7 +103,16 @@ public class OceanSurveyFullyManagedService extends StrapMetrics {
 
                 public void onMessage(byte[] data) {
                 //return data from provider to consumer
-                String message = new String(data);
+                Time time = new Time();
+
+    			time.set(System.currentTimeMillis());
+
+                String timeStr = " " + String.valueOf(time.hour) + ":" + String.valueOf(time.minute) + ":"
+                						+ String.valueOf(time.second);
+                String strToUpdateUI = new String(data);
+
+                final String message = strToUpdateUI.concat(timeStr);
+
                 try {
                 mConnection.send(CHANNEL_ID, message.getBytes());
                 } catch (IOException e) {
