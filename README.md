@@ -14,8 +14,8 @@ Getting started with the Strap Metrics SDK is pretty straightforward. These step
 1. Login to the [ Strap Dashboard ](http://www.straphq.com/login) and create an app. You'll need your App ID handy for the next step.
 2. Add the Strap Metrics SDK on both provider and consumer side for your Tizen project. Please refer README file for both side with following link:-
 
-* [README](README.md) for consumer side.
-* [README](README.md) for provider side.
+* [README](consumer/js/README.md) for consumer side.
+* [README](provider/Android/README.md) for provider side.
 
 
 
