@@ -11,10 +11,10 @@ Getting Started with the Strap Metrics Tizen SDK for Tizen Wear Apps
 
     Approach 1:
 
-    2.1. Paste the Strap.js file in your js directory. Then include it in head section of your main html file as follows:
+    2.1. Include the Strap js file in your js directory. Then include it in head section of your main html file as follows:
 
 		<head>
-			<script src="js/Strap.js"></script>
+			<script src="js/strap.tizen.sdk.0.2.6-rc1.js"></script>
 		</head>
 
     2.2. Paste the following code in your main.js to use Strap methods for sending data to StrapMetrics.
@@ -27,7 +27,7 @@ Getting Started with the Strap Metrics Tizen SDK for Tizen Wear Apps
       	  useragent: "TIZEN"
     	};
 
-		var strap = new Strap(APP_ID, CHANNEL_ID, Provider_App_Name, strapObj);
+		var strap = new Strap(APP_ID, Provider_App_Name, CHANNEL_ID, strapObj);
 
 	2.3 Establish connection between wear and phone device by using connect method provided by strap
 
@@ -56,10 +56,10 @@ Getting Started with the Strap Metrics Tizen SDK for Tizen Wear Apps
 
     Approach 2:
 
-    2.1. Paste the Strap.js file in your js directory. Then include it in head section of your main html file as follows:
+    2.1. Include the Strap js file in your js directory. Then include it in head section of your main html file as follows:
 
 		<head>
-			<script src="js/Strap.js"></script>
+			<script src="js/strap.tizen.sdk.0.2.6-rc1.js"></script>
 		</head>
 
     2.2. Paste the following code in main.js after the socket gets created so that the developer can use Strap methods for sending data 	 to StrapMetrics.
@@ -70,7 +70,7 @@ Getting Started with the Strap Metrics Tizen SDK for Tizen Wear Apps
      	   resolution: "144x168",
 			useragent: "TIZEN"
     	};
-		var strap = new Strap(APP_ID, CHANNEL_ID, SASocket, strapObj);
+		var strap = new Strap(APP_ID, SASocket, CHANNEL_ID, strapObj);
 
 
 	2.3 send strap events to StrapMetrics
