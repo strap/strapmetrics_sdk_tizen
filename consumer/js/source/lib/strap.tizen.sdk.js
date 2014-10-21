@@ -1,8 +1,8 @@
 var Strap = (function() {
     var Strap = function(app_id, channel_id, SocketOrAppName, strapdata) {
         if (app_id) {
-            if (SocketOrAppName instanceof Object) return new StrapWithOutManageConnection();
-            else return new StrapWithManageConnection();
+            if (SocketOrAppName instanceof Object) return new StrapWithOutManageConnection(app_id, channel_id, SocketOrAppName, strapdata);
+            else return new StrapWithManageConnection(app_id, channel_id, SocketOrAppName, strapdata);
         }
     }
     Strap.prototype = {
@@ -146,54 +146,54 @@ var StrapWithManageConnection = (function() {
         }
     }
     StrapWithManageConnection.prototype = {
-            constructor: StrapWithManageConnection,
-            getSASocket: function() {
-                return SASocket;
-            },
-            // Receive listener's handler for non strap related data
-            onreceive: function(channelId, data) {
-                // TODO
-            },
-            // send activity log to strap
-            strap_log_activity: function(data) {
-                var strap_obj_copy = strap_api_clone(strap_obj);
-                strap_obj_copy['act'] = data;
-                strap_send_data(strap_obj_copy);
-            },
-            // send event log to strap
-            strap_log_event: function(data) {
-                var strap_obj_copy = strap_api_clone(strap_obj);
-                strap_obj_copy['action_url'] = data;
-                strap_send_data(strap_obj_copy);
-            },
-            /**
-             * Communication related methods with phone
-             */
-            // Send a connect request from tizen to phone
-            connect: function() {
-                if (SASocket) {
-                    alert('Already connected!');
-                    return false;
+        constructor: StrapWithManageConnection,
+        getSASocket: function() {
+            return SASocket;
+        },
+        // Receive listener's handler for non strap related data
+        onreceive: function(channelId, data) {
+            // TODO
+        },
+        // send activity log to strap
+        strap_log_activity: function(data) {
+            var strap_obj_copy = strap_api_clone(strap_obj);
+            strap_obj_copy['act'] = data;
+            strap_send_data(strap_obj_copy);
+        },
+        // send event log to strap
+        strap_log_event: function(data) {
+            var strap_obj_copy = strap_api_clone(strap_obj);
+            strap_obj_copy['action_url'] = data;
+            strap_send_data(strap_obj_copy);
+        },
+        /**
+         * Communication related methods with phone
+         */
+        // Send a connect request from tizen to phone
+        connect: function() {
+            if (SASocket) {
+                alert('Already connected!');
+                return false;
+            }
+            try {
+                webapis.sa.requestSAAgent(onsuccess, onerror);
+            } catch (err) {
+                console.log("exception [" + err.name + "] msg[" + err.message + "]");
+            }
+        },
+        // Disconnect communication link
+        disconnect: function() {
+            try {
+                if (SASocket != null) {
+                    strap_finish(close_connection);
+                    console.log(" DISCONNECT SASOCKET NOT NULL");
                 }
-                try {
-                    webapis.sa.requestSAAgent(onsuccess, onerror);
-                } catch (err) {
-                    console.log("exception [" + err.name + "] msg[" + err.message + "]");
-                }
-            },
-            // Disconnect communication link
-            disconnect: function() {
-                try {
-                    if (SASocket != null) {
-                        strap_finish(close_connection);
-                        console.log(" DISCONNECT SASOCKET NOT NULL");
-                    }
-                } catch (err) {
-                    console.log(" DISCONNECT ERROR: exception [" + err.name + "] msg[" + err.message + "]");
-                }
+            } catch (err) {
+                console.log(" DISCONNECT ERROR: exception [" + err.name + "] msg[" + err.message + "]");
             }
         }
-        // Send app start log to strap
+    }
+    // Send app start log to strap
     var strap_start = function() {
             if (SASocket) {
                 StrapWithManageConnection.prototype.strap_log_event.call(this, "/STRAP_START");
@@ -310,28 +310,28 @@ var StrapWithOutManageConnection = (function() {
         }
     }
     StrapWithOutManageConnection.prototype = {
-            constructor: StrapWithOutManageConnection,
-            // send activity log to strap
-            strap_log_activity: function(data) {
-                var strap_obj_copy = strap_api_clone(strap_obj);
-                strap_obj_copy['act'] = data;
-                strap_send_data(strap_obj_copy);
-            },
-            // send event log to strap
-            strap_log_event: function(data) {
-                var strap_obj_copy = strap_api_clone(strap_obj);
-                strap_obj_copy['action_url'] = data;
-                strap_send_data(strap_obj_copy);
-            },
-            // deinitialize or release strap object
-            strap_finish: function() {
-                if (SASocket) {
-                    StrapWithOutManageConnection.prototype.strap_log_event.call(this, "/STRAP_FINISH");
-                    delete this;
-                }
+        constructor: StrapWithOutManageConnection,
+        // send activity log to strap
+        strap_log_activity: function(data) {
+            var strap_obj_copy = strap_api_clone(strap_obj);
+            strap_obj_copy['act'] = data;
+            strap_send_data(strap_obj_copy);
+        },
+        // send event log to strap
+        strap_log_event: function(data) {
+            var strap_obj_copy = strap_api_clone(strap_obj);
+            strap_obj_copy['action_url'] = data;
+            strap_send_data(strap_obj_copy);
+        },
+        // deinitialize or release strap object
+        strap_finish: function() {
+            if (SASocket) {
+                StrapWithOutManageConnection.prototype.strap_log_event.call(this, "/STRAP_FINISH");
+                delete this;
             }
         }
-        // Send app start log to strap
+    }
+    // Send app start log to strap
     var strap_start = function() {
         if (SASocket) {
             StrapWithOutManageConnection.prototype.strap_log_event.call(this, "/STRAP_START");

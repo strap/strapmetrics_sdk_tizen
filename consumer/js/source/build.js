@@ -11,9 +11,8 @@ var fs = require("fs"),
     async = require("async"),
     rr = require("recursive-readdir"),
     beautify = require("js-beautify").js_beautify,
-    //shell = require("shelljs/global"),
-    path = require("path");
-var exec = require('child_process').exec;
+    path = require("path"),
+    exec = require('child_process').exec;
 
 
 var tasks = [];

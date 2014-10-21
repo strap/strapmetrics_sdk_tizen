@@ -5,6 +5,7 @@ import java.io.IOException;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.text.format.Time;
 import android.util.Log;
 import com.samsung.android.sdk.SsdkUnsupportedException;
 import com.samsung.android.sdk.accessory.SA;
