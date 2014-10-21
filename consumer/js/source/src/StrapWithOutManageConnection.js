@@ -9,7 +9,7 @@ var StrapWithOutManageConnection = (function () {
     const NUM_SAMPLES = 200; // Bath of Samples to be send at a time
 
     // Constructor for strap
-    var StrapWithOutManageConnection = function (app_id, channel_id, SASocketObj, strapdata) {
+    var StrapWithOutManageConnection = function (app_id, SASocketObj, channel_id, strapdata) {
         SASocket = SASocketObj;
         CHANNELID = channel_id || 835462;
         strap_obj = {

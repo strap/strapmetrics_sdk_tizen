@@ -12,7 +12,7 @@ var StrapWithManageConnection = (function() {
         NUM_SAMPLES = 200; // Bath of Samples to be send at a time
 
     // Constructor for strap
-    var StrapWithManageConnection = function(app_id, channel_id, Provider_App_Name, strapdata) {
+    var StrapWithManageConnection = function(app_id, Provider_App_Name, channel_id, strapdata) {
         SAAgent = null;
         SASocket = null;
         CHANNELID = channel_id || 835462;

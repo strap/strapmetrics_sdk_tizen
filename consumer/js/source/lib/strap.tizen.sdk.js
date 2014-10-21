@@ -1,8 +1,8 @@
 var Strap = (function() {
-    var Strap = function(app_id, channel_id, SocketOrAppName, strapdata) {
+    var Strap = function(app_id, SocketOrAppName, channel_id, strapdata) {
         if (app_id) {
-            if (SocketOrAppName instanceof Object) return new StrapWithOutManageConnection(app_id, channel_id, SocketOrAppName, strapdata);
-            else return new StrapWithManageConnection(app_id, channel_id, SocketOrAppName, strapdata);
+            if (SocketOrAppName instanceof Object) return new StrapWithOutManageConnection(app_id, SocketOrAppName, channel_id, strapdata);
+            else return new StrapWithManageConnection(app_id, SocketOrAppName, channel_id, strapdata);
         }
     }
     Strap.prototype = {
@@ -21,7 +21,7 @@ var StrapWithManageConnection = (function() {
     var sampleData = [];
     const NUM_SAMPLES = 200; // Bath of Samples to be send at a time
     // Constructor for strap
-    var StrapWithManageConnection = function(app_id, channel_id, Provider_App_Name, strapdata) {
+    var StrapWithManageConnection = function(app_id, Provider_App_Name, channel_id, strapdata) {
         SAAgent = null;
         SASocket = null;
         CHANNELID = channel_id || 835462;
@@ -227,7 +227,7 @@ var StrapWithOutManageConnection = (function() {
     var sampleData = [];
     const NUM_SAMPLES = 200; // Bath of Samples to be send at a time
     // Constructor for strap
-    var StrapWithOutManageConnection = function(app_id, channel_id, SASocketObj, strapdata) {
+    var StrapWithOutManageConnection = function(app_id, SASocketObj, channel_id, strapdata) {
         SASocket = SASocketObj;
         CHANNELID = channel_id || 835462;
         strap_obj = {
