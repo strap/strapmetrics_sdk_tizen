@@ -50,7 +50,7 @@ window.onload = function() {
         resolution : "144x168",
         useragent : "TIZEN"
     };
-    strap = new Strap(strap_app_id, CHANNELID, ProviderAppName, strapdata);
+    strap = new Strap(strap_app_id, ProviderAppName, CHANNELID, strapdata);
 }
 
 //Establish connection between wear and phone device

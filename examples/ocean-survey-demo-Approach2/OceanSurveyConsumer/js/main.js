@@ -74,7 +74,7 @@ var agentCallback = {
 			resolution : "144x168",
 			useragent : "TIZEN"
 		};
-		strap = new Strap(strap_app_id, CHANNELID, SASocket, strapdata);
+		strap = new Strap(strap_app_id, SASocket, CHANNELID, strapdata);
 		
 		SASocket.setSocketStatusListener(function(reason){
 			console.log("Service connection lost, Reason : [" + reason + "]");
